@@ -15,7 +15,7 @@ def checkbook(bookid):
     else:
         return False
 
-
+#add a book to database
 def AddBook(request):
     db = dbconnect.connection()
     cursor = db.cursor()
@@ -47,6 +47,7 @@ def AddBook(request):
         db.rollback()
         return "Error uploading book to library database"
 
+#display all books in database
 def DisplayAll():
     db = dbconnect.connection()
     cursor = db.cursor()
@@ -75,7 +76,8 @@ def DisplayAll():
         return list
     except:
         return 'Error fetching book inventory'
-    
+
+#display a specific book    
 def DisplayOne(request):
     db = dbconnect.connection()
     cursor = db.cursor()
@@ -112,9 +114,8 @@ def DisplayOne(request):
         return list
     except:
         return 'Error fetching book information from inventory'
-    
-    
 
+#display list of available books   
 def DisplayAvailableBooks():
     db = dbconnect.connection()
     cursor = db.cursor()
@@ -143,7 +144,8 @@ def DisplayAvailableBooks():
         return list
     except:
         return 'Error fetching available books from inventory'
-    
+
+#display list of borrowed books     
 def DisplayBorrowedBooks():
     db = dbconnect.connection()
     cursor = db.cursor()
@@ -169,7 +171,8 @@ def DisplayBorrowedBooks():
         return list
     except:
         return 'Error fetching list of borrowed books'
-    
+
+#delete a book from database   
 def DeleteBook(request):
     db = dbconnect.connection()
     cursor = db.cursor()
@@ -195,37 +198,7 @@ def DeleteBook(request):
         db.rollback()
         return "Error deleting book from inventory"
 
-'''   
-def ChangetoAvailable(id):
-    db = dbconnect.connection()
-    cursor = db.cursor()
-    message = ''UPDATE BOOKS SET AVAILABILITY = 'Available' WHERE BOOKID = %s''
-    data = [id]
-
-    try:
-        cursor.execute(message,data)
-        db.commit()
-        return 1
-    except:
-        db.rollback()
-        return "Error changing the status of the book"
-
-def ChangetoBorrowed(id):
-    db = dbconnect.connection()
-    cursor = db.cursor()
-    message = ''UPDATE BOOKS SET AVAILABILITY = 'Borrowed' WHERE BOOKID = %s''
-    data = [id]
-
-    try:
-        cursor.execute(message,data)
-        db.commit()
-        return 1
-    except:
-        db.rollback()
-        return "Error changing the status of the book"
-
-'''        
-
+#return a borrowed book
 def ReturnBook(request):
     db = dbconnect.connection()
     cursor = db.cursor()
@@ -257,7 +230,7 @@ def ReturnBook(request):
     except:
         return 'Error returning book to library'
 
-
+#borow a book from library
 def BorrowBook(request):
     db = dbconnect.connection()
     cursor = db.cursor()
