@@ -243,6 +243,8 @@ def BorrowBook(request):
        list.append('Enter the book id')
     if bool(returndate) != 1:
         list.append("Enter return date")
+    if list:
+        return list
     if checkbook(id) != 1:
         return 'This book id is not in inventory'
     message1 = '''SELECT TITLE,AVAILABILITY FROM BOOKS WHERE BOOKID = %s'''
@@ -263,7 +265,7 @@ def BorrowBook(request):
     message = '''UPDATE BOOKS SET AVAILABILITY = 'Borrowed' WHERE BOOKID = %s'''
 
     update = 'Successfully borrowed ' + title + ' from the library' 
-    '''
+    
     try:
         cursor.execute(message2,data2)
         cursor.execute(message,data1)
@@ -272,8 +274,5 @@ def BorrowBook(request):
     except:
         db.rollback()
         return "Error occurred while attempting to borrow book"
-    '''
-    cursor.execute(message2,data2)
-    cursor.execute(message,data1)
-    db.commit()
+    
     return update
